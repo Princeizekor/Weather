@@ -45,6 +45,7 @@ export default function Navbar() {
         height={50}
         src="/assets/images/logo.svg"
         alt="Weather Icon"
+        className="nav-img"
       />
       <Actions ref={containerRef}>
         <Button aria-haspopup="menu" aria-expanded={open} onClick={toggle}>
@@ -53,6 +54,7 @@ export default function Navbar() {
             height={20}
             src="\assets\images\icon-units.svg"
             alt="drop Icon"
+            className="wiget"
           />
           Units
           <Image
@@ -60,6 +62,7 @@ export default function Navbar() {
             height={20}
             src="\assets\images\icon-dropdown.svg"
             alt="drop Icon"
+            className="wiget"
           />
         </Button>
         {open && (
@@ -92,4 +95,12 @@ const Nav = styled.nav`
   align-items: center;
   width: 100vw;
   padding: 0rem 8rem 0rem 8rem;
+
+  @media (max-width: 768px) {
+    padding: 0rem 1rem 0rem 1rem;
+    width: 100%;
+    .nav-img {
+      width: 130px;
+    }
+  }
 `;

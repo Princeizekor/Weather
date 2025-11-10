@@ -29,6 +29,15 @@ const WeatherCardContainer = styled.div`
     font-size: 2rem;
     font-weight: bold;
   }
+    @media (max-width: 768px) {
+    height: auto;
+    .min {
+    background-image: url("/assets/images/bg-today-small.svg");
+      flex-direction: column;
+      height: auto;
+      gap: 1rem;
+    }
+  }
 `;
 
 const WeatherCards = styled.div`
@@ -41,6 +50,9 @@ const WeatherCards = styled.div`
   font-size: 1.3rem;
   justify-content: space-between;
   padding: 1rem;
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const ForcastCard = styled.div`
@@ -60,6 +72,9 @@ const ForcastCard = styled.div`
     // align-items: center;
     width: 100%;
     justify-content: space-between;
+  }
+    @media (max-width: 768px) {
+    width: 100%;
   }
 `;
 
@@ -103,6 +118,12 @@ const WeatherForecast = styled.div`
     align-items: center;
     top: 0;
     background: hsl(243, 23%, 20%);
+  }
+    @media (max-width: 768px) {
+    width: 100%;
+    height: auto;
+    gap: 1.5rem;
+    margin: 2rem 0rem;
   }
 `;
 

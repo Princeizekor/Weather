@@ -195,12 +195,25 @@ const SearchContainer = styled.text`
     font-size: 3.2rem;
     margin: 10rem 0rem 3rem 0rem;
   }
+    @media (max-width: 768px) {
+    padding: 0rem 1rem;
+    h1 {
+      font-size: 1.5rem;
+      margin: 6rem 0rem 2rem 0rem;
+    }
+  }
 `;
 
 const FormContainer = styled.form`
   width: 680px;
   display: flex;
   justify-content: space-between;
+    @media (max-width: 768px) {
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+  }
 `;
 
 const InputContainer = styled.div`
@@ -214,6 +227,9 @@ const InputContainer = styled.div`
   border-radius: 8px;
   cursor: pointer;
   background: hsl(243, 23%, 20%);
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 const Input = styled.input`
   width: 95%;
@@ -226,6 +242,9 @@ const Input = styled.input`
   &::placeholder {
     color: hsl(0, 0%, 100%);
     opacity: 1;
+  }
+    @media (max-width: 768px) {
+    font-size: 0.9rem;
   }
 `;
 

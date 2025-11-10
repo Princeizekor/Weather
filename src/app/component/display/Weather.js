@@ -262,6 +262,11 @@ const WeatherContainer = styled.div`
   align-items: center;
   margin: 3rem 0rem 3rem 0rem;
   padding: 0rem 7.5rem 0rem 7.5rem;
+  @media (max-width: 768px) {
+    flex-direction: column;
+    padding: 0rem 1rem;
+    margin: 2rem 0rem;
+  }
 `;
 
 const WeatherDetails = styled.div`
@@ -274,18 +279,34 @@ const WeatherDetails = styled.div`
     margin-top: 2rem;
     font-size: 2rem;
   }
+    @media (max-width: 768px) {
+    width: 100%;
+    h2 {
+      font-size: 1.5rem;
+      margin-top: 1.5rem;
+    }
 `;
 
 const WeatherCardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
+  @media (max-width: 768px) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 `;
 const DailyForecast = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
   margin-top: 2rem;
+  @media (max-width: 768px) {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
 `;
 
 const DropdownMenu = styled.div`

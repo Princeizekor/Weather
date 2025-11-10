@@ -31,6 +31,16 @@ const Button = styled.button`
   &:hover {
     // background: hsl(243, 27%, 20%);
   }
+    @media (${device.tablet}) {
+    width: 120px;
+    height: 40px;
+    font-size: 0.9rem;
+    padding: 0.4rem 0.8rem;
+    .wiget {
+      width: 15px;
+      height: 15px;
+    }
+  }
 `;
 
 const Actions = styled.div`
@@ -107,6 +117,10 @@ const SearchButton = styled.button`
 
   &:hover {
     // background: hsl(248, 70%, 36%);
+  }
+    @media (max-width: 768px) {
+    width: 100%;
+    font-size: 1.2rem;
   }
 `;
 
