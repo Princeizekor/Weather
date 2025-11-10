@@ -9,6 +9,7 @@ import Image from "next/image";
 import { Action, Actions, Drop } from "../Button";
 import { useState, useRef, useEffect } from "react";
 import { getWeatherForecast } from "../lib/OpenMeteo";
+import { getWeatherIcon } from "../lib/WeatherIcons";
 
 export default function Weather({ initialRegion }) {
   const [selectedDay, setSelectedDay] = useState(0);
@@ -19,6 +20,53 @@ export default function Weather({ initialRegion }) {
       longitude: 13.405,
     }
   );
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        async (position) => {
+          const { latitude, longitude } = position.coords;
+          try {
+            const res = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${latitude}&lon=${longitude}`
+            );
+            const geo = await res.json();
+            const city =
+              geo.address.city ||
+              geo.address.town ||
+              geo.address.village ||
+              geo.address.state ||
+              geo.address.country ||
+              "Unknown Location";
+
+            setRegion({
+              name: city,
+              latitude,
+              longitude,
+            });
+          } catch (err) {
+            console.error("Reverse geocoding failed:", err);
+            setRegion({
+              name: "Unknown Location",
+              latitude,
+              longitude,
+            });
+          }
+        },
+        (err) => {
+          console.warn("Geolocation denied:", err);
+          setRegion({
+            name: "Berlin, Germany",
+            latitude: 52.52,
+            longitude: 13.405,
+          });
+        }
+      );
+    } else {
+      console.error("Geolocation not supported by browser.");
+    }
+  }, []);
 
   const handleDaySelect = (day, index) => {
     setSelectedDay(index);
@@ -107,7 +155,7 @@ export default function Weather({ initialRegion }) {
                 <Image
                   width={100}
                   height={100}
-                  src="/assets/images/icon-sunny.webp"
+                  src={getWeatherIcon(currentWeather?.weather_code)}
                   alt="Weather Icon"
                 />
                 <h1>{currentWeather?.temperature_2m}°</h1>
@@ -157,7 +205,7 @@ export default function Weather({ initialRegion }) {
                 <Image
                   width={50}
                   height={50}
-                  src={"/assets/images/icon-partly-cloudy.webp"}
+                  src={getWeatherIcon(currentWeather?.weather_code)}
                   alt="Weather Icon"
                 />
               )}
@@ -199,11 +247,11 @@ export default function Weather({ initialRegion }) {
             </Drop>
             {isOpen && (
               <DropdownMenu>
-                {dailyForecast?.time.slice(0, 7).map((time, index) => (
+                {dailyForecast?.time.slice(0, 7).map((time, i) => (
                   <DropdownItems
-                    key={index}
-                    onClick={() => handleDaySelect(time, index)}
-                    selected={index === selectedDay}
+                    key={i}
+                    onClick={() => handleDaySelect(time, i)}
+                    selected={i === selectedDay}
                   >
                     {new Date(time).toLocaleDateString("en-US", {
                       weekday: "long",
@@ -225,7 +273,7 @@ export default function Weather({ initialRegion }) {
                   <Image
                     width={50}
                     height={50}
-                    src="/assets/images/icon-partly-cloudy.webp"
+                    src={getWeatherIcon(currentWeather?.weather_code)}
                     alt="Weather Icon"
                   />
                 )}
@@ -292,8 +340,8 @@ const WeatherCardWrapper = styled.div`
   justify-content: space-between;
   margin-top: 2rem;
   @media (max-width: 768px) {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 `;
@@ -303,8 +351,8 @@ const DailyForecast = styled.div`
   justify-content: space-between;
   margin-top: 2rem;
   @media (max-width: 768px) {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 `;
@@ -320,7 +368,8 @@ const DropdownMenu = styled.div`
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   padding: 0.5rem 0;
   margin-top: 0.2rem;
-  min-height: 300px;
+  min-height: 200px;
+  gap: 0.3rem;
   min-width: 220px;
   z-index: 10;
 `;
@@ -332,10 +381,11 @@ const DropdownItems = styled.button`
   background: none;
   text-align: left;
   cursor: pointer;
-  font-size: 0.9rem;
+  font-size: 1rem;
   color: white;
 
   &:hover {
     background: hsl(243, 23%, 24%);
   }
+    
 `;

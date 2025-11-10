@@ -30,7 +30,7 @@ const WeatherCardContainer = styled.div`
     font-weight: bold;
   }
     @media (max-width: 768px) {
-    height: auto;
+    height: 235px;
     .min {
     background-image: url("/assets/images/bg-today-small.svg");
       flex-direction: column;

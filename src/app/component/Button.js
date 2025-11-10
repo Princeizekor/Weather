@@ -65,8 +65,26 @@ const Dropdown = styled.div`
   border-radius: 8px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
   padding: 0.4rem 0;
-  min-width: 250px;
+  min-width: 200px;
   z-index: 20;
+  .imperial {
+    width: 100%;
+    padding: 0.6rem 1rem;
+    border: none;
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 1rem;
+    color: white;
+    &:hover {
+      background: hsl(243, 23%, 24%);
+    }
+  }
+    h6 {
+    margin: 0.5rem 1rem;
+    font-size: 0.85rem;
+    color: hsl(0, 0%, 70%);
+    }
 `;
 
 const DropdownItem = styled.button`

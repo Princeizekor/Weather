@@ -9,12 +9,12 @@ export const getWeatherForecast = async (params = {}) => {
   try {
     const response = await openMeteo.get("/forecast", {
       params: {
-        latitude: 52.52,
-        longitude: 13.41,
-        timezone: "Europe/Berlin",
-        current: ["temperature_2m", "relative_humidity_2m", "weather_code"],
-        hourly: ["temperature_2m", "precipitation_probability"],
-        daily: ["weather_code", "temperature_2m_max", "temperature_2m_min"],
+        latitude: params.latitude || 52.52,
+        longitude: params.longitude || 13.41,
+        timezone: params.timezone || "auto",
+        current: ["temperature_2m", "relative_humidity_2m", "weather_code", "wind_speed_10m"],
+        hourly: ["temperature_2m", "precipitation_probability", "wind_speed_10m"],
+        daily: ["weather_code", "temperature_2m_max", "temperature_2m_min", "sunrise", "sunset"],
         ...params,
       },
     });
@@ -30,9 +30,14 @@ export const getCurrentWeather = async (latitude, longitude) => {
   try {
     const response = await openMeteo.get("/forecast", {
       params: {
-        latitude,
-        longitude,
-        current: true,
+        latitude: latitude || 52.52,
+        longitude: longitude || 13.41,
+        current: [
+          "temperature_2m",
+          "relative_humidity_2m",
+          "weather_code",
+          "wind_speed_10m",
+        ],
         timezone: "auto",
       },
     });

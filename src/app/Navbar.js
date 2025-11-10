@@ -9,15 +9,17 @@ export default function Navbar() {
   const containerRef = useRef(null);
 
   const Units = [
-    "Metric (°C, km/h)",
-    "Imperial (°F, mph)",
-    "Standard (K)",
-    "Metric (°C, km/h)",
-    "Imperial (°F, mph)",
-    "Standard (K)",
-    "Metric (°C, km/h)",
-    "Imperial (°F, mph)",
-    "Standard (K)",
+    "Celsius (°C)",
+    "Fahrenheit (°F)"
+  ];
+
+  const Wind = [
+    "km/h",
+    "mph"
+  ];
+
+  const Prec = [
+    "Millimeters (mm)"
   ];
 
   useEffect(() => {
@@ -67,7 +69,31 @@ export default function Navbar() {
         </Button>
         {open && (
           <Dropdown role="menu" aria-label="Units menu">
+            <button className="imperial">Switch to Imperial</button>
+            <h6>Temperature</h6>
             {Units.map((unit, i) => (
+              <DropdownItem
+                key={i}
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => selectUnit(unit)}
+              >
+                {unit}
+              </DropdownItem>
+            ))}
+            <h6>Wind</h6>
+            {Wind.map((unit, i) => (
+              <DropdownItem
+                key={i}
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => selectUnit(unit)}
+              >
+                {unit}
+              </DropdownItem>
+            ))}
+            <h6>Precipitation</h6>
+            {Prec.map((unit, i) => (
               <DropdownItem
                 key={i}
                 role="menuitem"
